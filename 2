@@ -1,0 +1,42 @@
+//the use of pointer and new in C++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* result = new ListNode(-1);
+        ListNode* zero= new ListNode(0);
+        ListNode *temp = result;
+        
+        int sum = 0;
+        bool jinwei = false;
+        do{
+            sum = 0;
+            if(jinwei) sum = 1 + l1->val + l2->val;
+            else sum = l1->val + l2->val;
+            if(sum < 10) jinwei = false;
+            else{
+                sum -= 10;
+                jinwei = true;
+            }
+            temp->next = new ListNode(sum);
+            temp = temp->next;
+            if((l1->next) == nullptr) l1 = zero;
+            else l1 = l1->next;
+            if((l2->next) == nullptr) l2 = zero;
+            else l2 = l2->next;
+        } while(l1->next != nullptr || l2->next != nullptr || (l1->val) != 0 || (l2->val) != 0);
+        if(jinwei) temp->next = new ListNode(1);
+        
+                  
+        return result->next;
+    }
+};
